@@ -28,6 +28,21 @@ class EntryPayload(BaseModel):
     remark: str | None = None
 
 
+class BatchActionPayload(BaseModel):
+    """对勾选的多条记录一次提交同一个动作。"""
+
+    action: str
+    ids: list[int] = Field(default_factory=list)
+
+
+class BatchActionResult(BaseModel):
+    """批量动作结果：逐条给出成败与说明，便于写回列表。"""
+
+    ok: bool
+    message: str
+    results: list[dict[str, Any]] = Field(default_factory=list)
+
+
 
 class StationEntry(BaseModel):
     """观测站点明细结构。"""
